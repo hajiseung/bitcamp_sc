@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+#gnb {
+	overflow: hidden; /* ul 밑에 있는게 float : left 되는걸 막으려고*/
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+}
+
+#gnb>li {
+	float: left; /*li를 수평으로 나열*/
+	list-style: none;
+	padding: 10px;
+}
+
+h1.title {
+	padding: 20px;
+}
+#contents{
+	padding: 15px;
+}
