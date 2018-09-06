@@ -4,7 +4,6 @@
 	padding: 0px;
 	margin: 0px;
 }
-
 #gnb {
 	overflow: hidden; /* ul 밑에 있는게 float : left 되는걸 막으려고*/
 	border-top: 1px solid #333333;
@@ -20,6 +19,7 @@
 h1.title {
 	padding: 20px;
 }
-#contents{
+
+#contents {
 	padding: 15px;
 }

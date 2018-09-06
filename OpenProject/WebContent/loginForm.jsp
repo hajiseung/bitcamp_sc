@@ -4,15 +4,15 @@
 <div id="contents">
 	<h2>로그인</h2>
 	<hr>
-	<form>
+	<form action="login.jsp" method="post">
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text"></td>
+				<td><input type="text" name="userID"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password"></td>
+				<td><input type="password" name="userPW"></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="로그인"></td>
