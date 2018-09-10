@@ -5,6 +5,10 @@ public class Member {
 	private String userpw;
 	private String username;
 
+	public Member() {
+		super();
+	}
+
 	public Member(String userid, String userpw, String username) {
 		super();
 		this.userid = userid;
@@ -40,5 +44,5 @@ public class Member {
 	public String toString() {
 		return "Member [userid=" + userid + ", userpw=" + userpw + ", username=" + username + "]";
 	}
-	
+
 }
