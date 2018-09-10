@@ -19,12 +19,7 @@
 			<td><input type="text" name="name"></td>
 		</tr>
 		<tr>
-			<td>사진</td>
-			<td><input type="file" name="photoFile"></td>
-		</tr>
-		<tr>
 			<td colspan="2"><input type="submit" value="회원가입"></td>
 		</tr>
-
 	</table>
 </form>
