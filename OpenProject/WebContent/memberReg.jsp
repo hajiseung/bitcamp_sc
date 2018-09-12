@@ -8,15 +8,15 @@
 	<table>
 		<tr>
 			<td>아이디(이메일)</td>
-			<td><input type="text" name="id"></td>
+			<td><input type="text" name="userid"></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="pw"></td>
+			<td><input type="password" name="userpw"></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="name"></td>
+			<td><input type="text" name="username"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="submit" value="회원가입"></td>
