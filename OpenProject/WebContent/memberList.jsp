@@ -1,6 +1,5 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
-<%@page import="java.util.TreeMap"%>
 <%@page import="Member_info.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -14,12 +13,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/default.css">
 <style>
 a {
-	text-decoration: none
+	text-decoration: none;
 }
-</style>
-<style>
+
 table, table td {
 	text-align: center;
 }
@@ -35,19 +34,20 @@ table td {
 	<tr>
 		<td>아이디</td>
 		<td>이름</td>
+		<td>비밀번호</td>
 		<td>수정 삭제</td>
 	</tr>
 	<%
 		while (iterator.hasNext()) {
 			Member member = (Member) tmp.get(iterator.next());
+			/*Member =  Member [userid=a, userpw=a, username=a] */
 	%>
 	<tr>
 		<td><%=member.getUserid()%></td>
 		<td><%=member.getUsername()%></td>
-		<td><a id="modifi" href="modifi.jsp">수정 <%
-			
-		%>
-		</a> <a id="can" href="can.jsp">삭제</a></td>
+		<td><%=member.getUserpw()%></td>
+		<td><a href="modifi.jsp?id=<%=member.getUserid()%>">수정 </a> <a
+			href="del.jsp?id=<%=member.getUserid()%>">삭제</a></td>
 	</tr>
 	<%
 		}
