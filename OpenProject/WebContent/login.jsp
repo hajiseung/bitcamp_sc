@@ -1,3 +1,9 @@
+
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="Header.jsp"%>
@@ -6,7 +12,7 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-
+<%-- 
 <jsp:useBean id="tmp" class="java.util.TreeMap" scope="application" />
 <%
 	String id = request.getParameter("userID");
@@ -26,6 +32,59 @@
 			request.getSession(false).setAttribute("userNAME", mem.getUsername());
 			response.sendRedirect("myPage.jsp");
 		}
+	}
+%> --%>
+<%
+	String id = request.getParameter("userID");
+	String pw = request.getParameter("userPW");
+	String idchk = "";
+	String pwchk = "";
+	String mname = "";
+
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+	String url = "jdbc:oracle:thin:@localhost:1522:orcl";
+	String user = "SCOTT";
+	String password = "tiger";
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	try {
+		conn = DriverManager.getConnection(url, user, password);
+
+		String sql = "select * from Webmember where mid='" + id + "'";
+		stmt = conn.createStatement();
+
+		rs = stmt.executeQuery(sql);
+		if (rs.next()) {
+			idchk = rs.getString("mid");
+			pwchk = rs.getString("mpw");
+			mname = rs.getString("mname");
+		}
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+			}
+		}
+		if (stmt != null) {
+			try {
+				stmt.close();
+			} catch (SQLException se) {
+			}
+		}
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException se) {
+			}
+		}
+	}
+	if (idchk != null && id.equals(idchk) && pw.equals(pwchk)) {
+		request.getSession(false).setAttribute("userID", idchk);
+		request.getSession(false).setAttribute("userNAME", mname);
+		response.sendRedirect("myPage.jsp");
 	}
 %>
 <div id="contents">
