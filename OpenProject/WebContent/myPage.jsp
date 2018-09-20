@@ -4,6 +4,8 @@
 <%
 	String id = (String) request.getSession(false).getAttribute("userID");
 	String name = (String) request.getSession(false).getAttribute("userNAME");
+	//String id = (String) session.getAttribute("userID");
+	//String name = (String) session.getAttribute("userNAME");
 
 	if (id == null) {
 %>

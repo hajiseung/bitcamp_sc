@@ -1,4 +1,3 @@
-
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -37,25 +36,35 @@
 <%
 	String id = request.getParameter("userID");
 	String pw = request.getParameter("userPW");
+
 	String idchk = "";
 	String pwchk = "";
 	String mname = "";
 
 	Class.forName("oracle.jdbc.driver.OracleDriver");
+	//데탑용
+	//String url = "jdbc:oracle:thin:@localhost:1522:orcl";
 
-	String url = "jdbc:oracle:thin:@localhost:1522:orcl";
-	String user = "SCOTT";
-	String password = "tiger";
+	//노트북용
+	//String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+
+	//String user = "SCOTT";
+	//String password = "tiger";
+	//커넥션 풀 사용
+	String jdbcDriver = "jdbc:apache:commons:dbcp:open";
+
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
-		conn = DriverManager.getConnection(url, user, password);
+		//conn = DriverManager.getConnection(url, user, password);
+		conn = DriverManager.getConnection(jdbcDriver);
 
 		String sql = "select * from Webmember where mid='" + id + "'";
 		stmt = conn.createStatement();
 
 		rs = stmt.executeQuery(sql);
+
 		if (rs.next()) {
 			idchk = rs.getString("mid");
 			pwchk = rs.getString("mpw");
@@ -81,9 +90,11 @@
 			}
 		}
 	}
-	if (idchk != null && id.equals(idchk) && pw.equals(pwchk)) {
+	if (id != "" && idchk != null && pw.equals(pwchk)) {
 		request.getSession(false).setAttribute("userID", idchk);
 		request.getSession(false).setAttribute("userNAME", mname);
+		//session.setAttribute("userID", idchk);
+		//session.setAttribute("userNAME", mname);
 		response.sendRedirect("myPage.jsp");
 	}
 %>

@@ -21,14 +21,21 @@
 <%
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 
-	String url = "jdbc:oracle:thin:@localhost:1522:orcl";
-	String user = "SCOTT";
-	String password = "tiger";
+	//데탑용
+	//String url = "jdbc:oracle:thin:@localhost:1522:orcl";
+
+	//노트북용
+	//String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+
+	//String user = "SCOTT";
+	//String password = "tiger";
+	String jdbcDriver = "jdbc:apache:commons:dbcp:open";
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 
 	try {
-		conn = DriverManager.getConnection(url, user, password);
+		//conn = DriverManager.getConnection(url, user, password);
+		conn = DriverManager.getConnection(jdbcDriver);
 		String sql = "update webmember set mname=? , mpw=?";
 
 		pstmt = conn.prepareStatement(sql);

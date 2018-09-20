@@ -50,14 +50,22 @@ table td {
 	<%
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
-		String url = "jdbc:oracle:thin:@localhost:1522:orcl";
-		String user = "SCOTT";
-		String password = "tiger";
+		//데탑용
+		//String url = "jdbc:oracle:thin:@localhost:1522:orcl";
+
+		//노트북용
+		//String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		//String user = "SCOTT";
+		//String password = "tiger";
+		
+		//커넥션 풀 사용
+		String jdbcDriver = "jdbc:apache:commons:dbcp:open";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DriverManager.getConnection(url, user, password);
+			//conn = DriverManager.getConnection(url, user, password);
+			conn = DriverManager.getConnection(jdbcDriver);
 			String sql = "select * from Webmember";
 			stmt = conn.createStatement();
 
@@ -68,9 +76,8 @@ table td {
 		<td><%=rs.getString("mid")%></td>
 		<td><%=rs.getString("mname")%></td>
 		<td><%=rs.getString("mpw")%></td>
-		<td><a href="modifi.jsp?id=<%=rs.getString("mid")%>">수정 </a> 
-			<a href="del.jsp?id=<%=rs.getString("mid")%>">삭제</a>
-		</td>
+		<td><a href="modifi.jsp?id=<%=rs.getString("mid")%>">수정 </a> <a
+			href="del.jsp?id=<%=rs.getString("mid")%>">삭제</a></td>
 	</tr>
 	<%
 		}
