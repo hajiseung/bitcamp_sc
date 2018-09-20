@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- <link rel="stylesheet" href="css/default.css"> -->
+<link rel="stylesheet" href="css/default.css">
 <h1>Open Project</h1>
 <ul id="gnb">
 	<li><a href="Index.jsp">Home</a></li>
