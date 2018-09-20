@@ -7,7 +7,7 @@
 <form action="modifi2.jsp" method="post">
 	<%
 		String str = request.getParameter("id");
-		session.setAttribute("idd", str);
+		/* session.setAttribute("idd", str); */
 	%>
 	<table>
 		<tr>

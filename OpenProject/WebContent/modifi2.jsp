@@ -1,3 +1,7 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.TreeMap"%>
@@ -5,13 +9,48 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<jsp:useBean id="tmp" class="java.util.TreeMap" scope="application" />
+<%-- <jsp:useBean id="tmp" class="java.util.TreeMap" scope="application" />
 <%
 	String id = (String) session.getAttribute("idd");
 	String name = request.getParameter("modiName");
 	String pw = request.getParameter("modiPw");
 	tmp.replace(id, new Member(id, pw, name));
 	session.removeAttribute("idd");
+	response.sendRedirect("memberList.jsp");
+%> --%>
+<%
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+	String url = "jdbc:oracle:thin:@localhost:1522:orcl";
+	String user = "SCOTT";
+	String password = "tiger";
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+
+	try {
+		conn = DriverManager.getConnection(url, user, password);
+		String sql = "update webmember set mname=? , mpw=?";
+
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, request.getParameter("modiName"));
+		pstmt.setString(2, request.getParameter("modiPw"));
+
+		pstmt.executeUpdate();
+	} finally {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+			}
+		}
+
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException se) {
+			}
+		}
+	}
 	response.sendRedirect("memberList.jsp");
 %>
 

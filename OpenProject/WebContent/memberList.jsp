@@ -1,13 +1,18 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="Member_info.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="Header.jsp"%>
-<jsp:useBean id="tmp" class="java.util.TreeMap" scope="application" />
+<%-- <jsp:useBean id="tmp" class="java.util.TreeMap" scope="application" />
 <%
 	Iterator iterator = tmp.keySet().iterator();
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,12 +42,61 @@ table td {
 		<td>비밀번호</td>
 		<td>수정 삭제</td>
 	</tr>
-	<%
+	<%-- <%
 		while (iterator.hasNext()) {
 			Member member = (Member) tmp.get(iterator.next());
 			/*Member =  Member [userid=a, userpw=a, username=a] */
+	%> --%>
+	<%
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		String url = "jdbc:oracle:thin:@localhost:1522:orcl";
+		String user = "SCOTT";
+		String password = "tiger";
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DriverManager.getConnection(url, user, password);
+			String sql = "select * from Webmember";
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
 	%>
 	<tr>
+		<td><%=rs.getString("mid")%></td>
+		<td><%=rs.getString("mname")%></td>
+		<td><%=rs.getString("mpw")%></td>
+		<td><a href="modifi.jsp?id=<%=rs.getString("mid")%>">수정 </a> 
+			<a href="del.jsp?id=<%=rs.getString("mid")%>">삭제</a>
+		</td>
+	</tr>
+	<%
+		}
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException se) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException se) {
+				}
+			}
+
+		}
+	%>
+	<%-- <tr>
 		<td><%=member.getUserid()%></td>
 		<td><%=member.getUsername()%></td>
 		<td><%=member.getUserpw()%></td>
@@ -51,7 +105,7 @@ table td {
 	</tr>
 	<%
 		}
-	%>
+	%> --%>
 	<!-- 입력 받은 id 로 session에 하나씩 저장 하였음  id 하나씩 불러와서 꺼내어서 출력 -->
 	<%-- <%
 		Enumeration<String> e = application.getAttributeNames();
